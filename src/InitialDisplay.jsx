@@ -56,6 +56,7 @@ function InitialDisplay(){
                 setEditingGoalId(null)
             } );
     }
+    
 
     return(
         <>
