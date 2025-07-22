@@ -67,3 +67,6 @@ button:active {
 #form{
   display: grid;
 }
+#delete{
+  background-color: rgb(250, 97, 31);
+}

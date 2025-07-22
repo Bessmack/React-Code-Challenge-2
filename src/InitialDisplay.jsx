@@ -56,6 +56,15 @@ function InitialDisplay(){
                 setEditingGoalId(null)
             } );
     }
+
+    function handleDelete(goalId){
+        fetch(`${baseUrl}/${goalId}`, {
+            method: 'DELETE'
+        })
+            .then(()=>{
+                setGoals(goals.filter(goal => goal.id !== goalId));
+            })
+    }
     
 
     return(
@@ -83,6 +92,7 @@ function InitialDisplay(){
                             <p>Deadline: {goal.deadline}</p>
                             <p>Created: {goal.createdAt}</p>
                             <button onClick={()=> startEditing(goal) }>EDIT</button>
+                            <button id="delete" onClick={()=> handleDelete(goal.id) }>DELETE</button>
                             <hr />
                         </>
                     ) }
