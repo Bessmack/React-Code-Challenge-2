@@ -13,7 +13,7 @@
       "id": "2",
       "name": "Emergency Fund",
       "targetAmount": 10000,
-      "savedAmount": 7500,
+      "savedAmount": 7512,
       "category": "Emergency",
       "deadline": "2026-06-30",
       "createdAt": "2023-05-01"
@@ -67,7 +67,7 @@
       "id": "8",
       "name": "New Phone",
       "targetAmount": 1200,
-      "savedAmount": 0,
+      "savedAmount": 120,
       "category": "Electronics",
       "deadline": "2025-01-31",
       "createdAt": "2024-07-10"

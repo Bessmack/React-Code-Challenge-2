@@ -93,42 +93,59 @@ function InitialDisplay({goals, setGoals}){
         <>
             <AddPlan onAddGoal={handleGoalAdded} />
             {goals.map((goal) =>{
-            return(
-                <div key={goal.id}>
-                    {editingGoalId === goal.id?(
-                        <>
-                            <input name="name" className="inputs" value={editForm.name} onChange={handleEdit} />
-                            <input name="targetAmount" className="inputs" placeholder="Target Amount" value={editForm.targetAmount} onChange={handleEdit} />
-                            <input name="savedAmount" className="inputs" placeholder="Initial Amount" value={editForm.savedAmount} onChange={handleEdit} />
-                            <input name="category" className="inputs" placeholder="Category" value={editForm.category} onChange={handleEdit} />
-                            <input name="deadline" className="inputs" placeholder="Deadline" value={editForm.deadline} onChange={handleEdit} />
-                            <button onClick={() => saveEdit(goal.id)}>SAVE</button>
-                        </>
-                    ):(
-                        <>
-                            <h1>{goal.name}</h1>
-                            <h3>~{goal.category}~</h3>
-                            <p>Target Amount: {goal.targetAmount}</p>
-                            <p>Saved Amount: {goal.savedAmount}</p>
-                            <p>Remaining Amount: {Number(goal.targetAmount)-Number(goal.savedAmount)}</p>
-                            <p>Deadline: {goal.deadline}</p>
-                            <p>Created: {goal.createdAt}</p>
-                            <button onClick={()=> startEditing(goal) }>EDIT</button>
-                            <button id="delete" onClick={()=> handleDelete(goal.id) }>DELETE</button>
+                const target = Number(goal.targetAmount);
+                const saved = Number(goal.savedAmount);
+                const progress = (saved / target) * 100;
+                const savedPercentage = Math.min(progress, 100).toFixed(1);
+                return(
+                    <div key={goal.id}>
+                        {editingGoalId === goal.id?(
+                            <>
+                                <input name="name" className="inputs" value={editForm.name} onChange={handleEdit} />
+                                <input name="targetAmount" className="inputs" placeholder="Target Amount" value={editForm.targetAmount} onChange={handleEdit} />
+                                <input name="savedAmount" className="inputs" placeholder="Initial Amount" value={editForm.savedAmount} onChange={handleEdit} />
+                                <input name="category" className="inputs" placeholder="Category" value={editForm.category} onChange={handleEdit} />
+                                <input name="deadline" className="inputs" placeholder="Deadline" value={editForm.deadline} onChange={handleEdit} />
+                                <button onClick={() => saveEdit(goal.id)}>SAVE</button>
+                            </>
+                        ):(
+                            <>
+                                <h1>{goal.name}</h1>
+                                <h3>~{goal.category}~</h3>
+                                <p>Target Amount: {goal.targetAmount}</p>
+                                <p>Saved Amount: {goal.savedAmount}</p>
+                                <p>Remaining Amount: {Number(goal.targetAmount)-Number(goal.savedAmount)}</p>
+                                <p>Deadline: {goal.deadline}</p>
+                                <p>Created: {goal.createdAt}</p>
 
-                            {depositingGoalId === goal.id? (
-                                <>
-                                    <input type="number"  placeholder="Enter deposit amount" value={depositAmount} onChange={(e)=> setDepositAmount(e.target.value)}/>
-                                    <button onClick={() => handleDeposit(goal)}>Confirm Deposit</button>
-                                    <button onClick={() => setDepositingGoalId(null)}>Cancel</button>
-                                </>
-                            ):(
-                                <button onClick={() => openDeposit(goal.id)}>DEPOSIT</button>
-                            )}
-                            <hr />
-                        </>
-                    ) }
-                    
+                                <div style={{ backgroundColor: "#ddd", borderRadius: "5px", overflow: "hidden" }}>
+                                    <div
+                                    style={{
+                                        width: `${Math.min(progress, 100)}%`,
+                                        backgroundColor: progress >= 100 ? "orange" : "#4caf50",
+                                        height: "20px",
+                                        transition: "width 0.3s ease-in-out"
+                                    }}
+                                    />
+                                </div>
+                                <p>{savedPercentage}% Saved</p>
+                                <p>{savedPercentage <= `${30}` ? "Keep it up!!!": "Hurray!!!"}</p>
+
+                                <button onClick={()=> startEditing(goal) }>EDIT</button>
+                                <button id="delete" onClick={()=> handleDelete(goal.id) }>DELETE</button>
+
+                                {depositingGoalId === goal.id? (
+                                    <>
+                                        <input type="number"  placeholder="Enter deposit amount" value={depositAmount} onChange={(e)=> setDepositAmount(e.target.value)}/>
+                                        <button onClick={() => handleDeposit(goal)}>Confirm Deposit</button>
+                                        <button onClick={() => setDepositingGoalId(null)}>Cancel</button>
+                                    </>
+                                ):(
+                                    <button onClick={() => openDeposit(goal.id)}>DEPOSIT</button>
+                                )}
+                                <hr />
+                            </>
+                        ) }
                 </div>
             );
         }) }
