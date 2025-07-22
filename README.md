@@ -1,12 +1,29 @@
-# React + Vite
+# SMART GOAL PLANNER
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ This tool allows users to manage multiple savings goals, allocate deposits across them, and track progress toward each goal.
 
-Currently, two official plugins are available:
+## Users can:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Add new financial goals (e.g., “Travel Fund”, “Emergency Fund”)
+2. Track progress for each goal
+3. Make deposits to any goal
+4. See a full overview of all their savings activity
+5. users canuUpdate existing goals.
 
-## Expanding the ESLint configuration
+## User can see:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Total number of Goals once logged in.
+2. Total money saved across a ll goals. This includes a progress bar that is co-respondent to the percentage saved
+
+### NOTE
+
+json-server will be used to serve this db.json file as a REST API (e.g., http://localhost:3000/goalsLinks to an external site.).
+
+### Setup
+Follow the guidlines as follows:
+a. Fork into your remote account
+b. git clone SSH-key
+c. Jibambe.
+
+## Author
+Sir Stephen Njenga the III
