@@ -16,7 +16,8 @@ function AddPlan({ onAddGoal }) {
             targetAmount,
             savedAmount,
             category,
-            deadline
+            deadline,
+            createdAt: new Date().toISOString().split('T')[0]
         };
 
         fetch(baseUrl, {

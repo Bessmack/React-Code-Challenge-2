@@ -69,4 +69,6 @@ button:active {
 }
 #delete{
   background-color: rgb(250, 97, 31);
+  margin-left: 10px;
+  margin-right: 10px;
 }

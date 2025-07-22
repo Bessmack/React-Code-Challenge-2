@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AddPlan from "./AddPlan";
 
-function InitialDisplay(){
-    const [goals, setGoals] = useState([]);
+function InitialDisplay({goals, setGoals}){
     const [editingGoalId, setEditingGoalId] = useState(null);
     const [editForm, setEditForm] = useState({
         name: "",
@@ -11,13 +10,11 @@ function InitialDisplay(){
         category: "",
         deadline: ""
     });
+    const [depositingGoalId, setDepositingGoalId] = useState(null)
+    const [depositAmount, setDepositAmount] = useState('');
+
     const baseUrl = "http://localhost:3000/goals";
 
-    useEffect(() =>{
-        fetch(baseUrl)
-            .then(res => res.json())
-            .then(data => setGoals(data))
-    }, [])
 
     function handleGoalAdded(newGoal){
         setGoals([...goals, newGoal])
@@ -66,6 +63,31 @@ function InitialDisplay(){
             })
     }
     
+    function handleDeposit(goal){
+        const deposit = Number(depositAmount);
+        const newSaved = Number(goal.savedAmount) + deposit;
+        const updatedGoal = { ...goal, savedAmount: newSaved }
+
+        fetch(`${baseUrl}/${goal.id}`, {
+            method:'PATCH',
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({savedAmount: newSaved})
+        })
+            .then(res => res.json())
+            .then(updated => {
+                setGoals(goals.map(x => x.id === goal.id? updated : x));
+                setDepositingGoalId(null)
+                setDepositAmount('')
+            })
+    }
+
+    function openDeposit(goalId){
+        setDepositingGoalId(goalId);
+        setDepositAmount('');
+    }
+
 
     return(
         <>
@@ -87,12 +109,22 @@ function InitialDisplay(){
                             <h1>{goal.name}</h1>
                             <h3>~{goal.category}~</h3>
                             <p>Target Amount: {goal.targetAmount}</p>
-                            <p>Saved Amount: {goal.targetAmount-goal.savedAmount}</p>
-                            <p>Remaining Amount: {goal.savedAmount}</p>
+                            <p>Saved Amount: {goal.savedAmount}</p>
+                            <p>Remaining Amount: {Number(goal.targetAmount)-Number(goal.savedAmount)}</p>
                             <p>Deadline: {goal.deadline}</p>
                             <p>Created: {goal.createdAt}</p>
                             <button onClick={()=> startEditing(goal) }>EDIT</button>
                             <button id="delete" onClick={()=> handleDelete(goal.id) }>DELETE</button>
+
+                            {depositingGoalId === goal.id? (
+                                <>
+                                    <input type="number"  placeholder="Enter deposit amount" value={depositAmount} onChange={(e)=> setDepositAmount(e.target.value)}/>
+                                    <button onClick={() => handleDeposit(goal)}>Confirm Deposit</button>
+                                    <button onClick={() => setDepositingGoalId(null)}>Cancel</button>
+                                </>
+                            ):(
+                                <button onClick={() => openDeposit(goal.id)}>DEPOSIT</button>
+                            )}
                             <hr />
                         </>
                     ) }

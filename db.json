@@ -4,7 +4,7 @@
       "id": "1",
       "name": "Travel Fund - Japan",
       "targetAmount": 5000,
-      "savedAmount": 3200,
+      "savedAmount": 1000,
       "category": "Travel",
       "deadline": "2025-12-31",
       "createdAt": "2024-01-15"
@@ -89,14 +89,6 @@
       "category": "Home",
       "deadline": "2025-03-31",
       "createdAt": "2024-05-15"
-    },
-    {
-      "id": "705e",
-      "name": "What the helly",
-      "targetAmount": "5212545463216+568",
-      "savedAmount": "310212545",
-      "category": "Garage",
-      "deadline": "12"
     }
   ]
 }
